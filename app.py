@@ -3,18 +3,25 @@
 
 import streamlit as st
 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 #New import from langchain, which replaces the above
-from langcahin.llms import HuggingFaceEndpoint
+from langchain.llms import HuggingFaceHub
 
 #When deployed on huggingface spaces, this values has to be passed using Variables & Secrets setting, as shown in the video :)
-#import os
-#os.environ["HUGGINGFACEHUB_API_TOKEN"] = "sk-PLfFwPq6y24234234234FJ1Uc234234L8hVowXdt"
+import os
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 
+#llm_model=HuggingFaceHub(huggingfacehub_api_token=os.environ['HUGGINGFACE_API_KEY'],
+                         #repo_id=model_id,
+                         #model_kwargs={"temperature":0.5, 'max_new_tokens':250})
 #Function to return the response
 def load_answer(question):
     # "interneuronai/az-question-answering" model is depreciated, so using the latest one https://platform.openai.com/docs/deprecations
-    llm = HuggingFaceEndpoint(repo_id="interneuronai/az-question-answering")
+    llm = HuggingFaceHub(huggingfacehub_api_token=os.environ['HUGGINGFACE_API_KEY'],
+                         repo_id="interneuronai/az-question-answering")
 
     #Last week langchain has recommended to use invoke function for the below please :)
     answer=llm.invoke(question)
