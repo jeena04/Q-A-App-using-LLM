@@ -12,7 +12,7 @@ from langchain.llms import HuggingFaceHub
 
 #When deployed on huggingface spaces, this values has to be passed using Variables & Secrets setting, as shown in the video :)
 import os
-os.environ["HUGGINGFACEHUB_API_TOKEN"] = os.getenv("HUGGINGFACEHUB_API_TOKEN")
+os.environ["HUGGINGFACE_API_KEY"] = os.getenv("HUGGINGFACE_API_KEY")
 
 #llm_model=HuggingFaceHub(huggingfacehub_api_token=os.environ['HUGGINGFACE_API_KEY'],
                          #repo_id=model_id,
@@ -21,7 +21,7 @@ os.environ["HUGGINGFACEHUB_API_TOKEN"] = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 def load_answer(question):
     # "interneuronai/az-question-answering" model is depreciated, so using the latest one https://platform.openai.com/docs/deprecations
     llm = HuggingFaceHub(huggingfacehub_api_token=os.environ['HUGGINGFACE_API_KEY'],
-                         repo_id="interneuronai/az-question-answering")
+                         repo_id="mistralai/Mistral-7B-Instruct-v0.2")
 
     #Last week langchain has recommended to use invoke function for the below please :)
     answer=llm.invoke(question)
