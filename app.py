@@ -21,7 +21,8 @@ os.environ["HUGGINGFACE_API_KEY"] = os.getenv("HUGGINGFACE_API_KEY")
 def load_answer(question):
     # "interneuronai/az-question-answering" model is depreciated, so using the latest one https://platform.openai.com/docs/deprecations
     llm = HuggingFaceHub(huggingfacehub_api_token=os.environ['HUGGINGFACE_API_KEY'],
-                         repo_id="mistralai/Mistral-7B-Instruct-v0.2")
+                         repo_id="mistralai/Mistral-7B-Instruct-v0.2",
+                         model_kwargs={"temperature":0.5, 'max_new_tokens':250})
 
     #Last week langchain has recommended to use invoke function for the below please :)
     answer=llm.invoke(question)
